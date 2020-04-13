@@ -26,6 +26,23 @@
   text-decoration: none;
 }
 
+//-----//
+#maps{
+  height: 500px;
+  background-color: red;
+}
+
+#search-header{
+  margin: 0px auto;
+  color : red;
+}
+
 ion-content ion-toolbar {
   --background: translucent;
 }
+
+// ion-header ion-input{  
+//   margin-left : 20px;
+//   font-size: 18px;
+//   font-family: Arial;
+// }
