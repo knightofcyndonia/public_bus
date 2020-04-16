@@ -9,10 +9,33 @@
     <ion-grid>
       <ion-row></ion-row>
     </ion-grid>
-    <div id="header-title">{{title}}</div>
+    <div id="header-title">Public Bus ETA</div>
 </div>
 
 <ion-content>
   <div id="container">
+
+    <ion-card>
+      <ion-card-header class="terminal-header">
+        <ion-card-title>Terminal Polibatam 1</ion-card-title>
+        <ion-card-subtitle>Batam Center</ion-card-subtitle>
+      </ion-card-header>
+    
+      <!-- <ion-card-content> -->
+      <div class="div-card-content">
+        <ion-item lines="none">
+          <ion-label class="bus-title">Transbus 31</ion-label>
+          <ion-icon name="time-outline" slot="end" class="bus-time"></ion-icon>
+          <p class="bus-time" slot="end">3 m</p>
+        </ion-item>
+      </div>
+      <!-- </ion-card-content> -->
+
+      
+    </ion-card>
+
+
+    <ion-button (click)="goFindBusPage()">Find Bus</ion-button>
+    <ion-button (click)="goFindLocationPage()">Find Location</ion-button>
   </div>
 </ion-content>

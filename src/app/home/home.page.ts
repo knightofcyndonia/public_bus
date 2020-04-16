@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,18 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
   title = 'Public Bus ETA';
-  constructor() {}
+
+  constructor(private router: Router) 
+  {
+
+  }
+
+  goFindLocationPage(){
+    this.router.navigate(['/find-location/']);
+  }
+
+  goFindBusPage(){
+    this.router.navigate(['/find-bus/']);
+  }
 
 }

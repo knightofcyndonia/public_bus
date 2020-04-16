@@ -86,14 +86,19 @@
   #header{
     background: green;
     color : white;
-    padding: 15px 0;
+    padding: 10px 0;
     font-family: Arial, Helvetica, sans-serif;
   }
 
   #header-title{
     // text-align: center!important;
-    font-size: 20px;
+    font-size: 23px;
     margin-left: 15px;
+  }
+  
+
+  #span-header-title{
+    margin-left: 20px;
   }
 
   // End custom css
