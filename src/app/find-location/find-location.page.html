@@ -6,16 +6,34 @@
     </ion-grid>
     
     <div id="header-title">
-      <ion-icon name="home-outline" (click)="goHomePage()"></ion-icon>
+      <!-- <ion-icon name="home-outline" (click)="goHomePage()"></ion-icon> -->
       <span id="span-header-title">Public Bus ETA</span>
     </div>
 </div>
 
 <ion-content>
   <div id="container">
-
-    <div class="div-input">
-      <ion-input class="ion-input" placeholder="Select location"></ion-input>
-    </div>
+    <ion-card>
+      <ion-card-content>
+        <div class="div-input">
+          <ion-input class="ion-input" placeholder="Source location" [(ngModel)]="idTerminalSource"></ion-input>
+        </div>
+        
+        <div class="div-input">
+          <ion-input class="ion-input" placeholder="Destination location" [(ngModel)]="idTerminalDest"></ion-input>
+        </div>
+        
+        <ion-button expand="block" style="margin-top : 30px;" (click)="goFilterBus()">Find buses</ion-button>
+      </ion-card-content>
+    </ion-card>
   </div>
+
+  <!-- <ion-card>
+    <ion-list *ngIf="listTerminals.length > 0; else showIfNoData">
+      <ion-card-content>
+        <ion-item *ngFor="let terminal of listTerminals">{{ terminal.terminal_name }}</ion-item>
+      </ion-card-content>
+    </ion-list>
+  </ion-card> -->
+  
 </ion-content>

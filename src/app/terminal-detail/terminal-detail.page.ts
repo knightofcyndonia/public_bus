@@ -1,36 +1,69 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import {listofTerminals} from '../data/list-terminals';
+import { TerminalService } from '../services/terminal.service';
 import * as $ from 'jquery';
+import { from } from 'rxjs';
 
 
 declare var google: any ;
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  selector: 'app-terminal-detail',
+  templateUrl: './terminal-detail.page.html',
+  styleUrls: ['./terminal-detail.page.scss'],
 })
-
-export class HomePage {
+export class TerminalDetailPage implements OnInit {
   map:any;
   title = 'Public Bus ETA';
+  listTerminals = [];
+  params = '';
 
-  constructor(private router: Router) 
+  terminalSource: any = [];
+  terminalDest: any = [];
+
+  constructor(
+    private router: Router,
+    private activatedRoute : ActivatedRoute,
+    private terminalService : TerminalService
+    ) 
   {
 
   }
 
-  goFindLocationPage(){
-    this.router.navigate(['/find-location/']);
-  }
-
-  goFindBusPage(){
-    this.router.navigate(['/find-bus/']);
-  }
-
   // ionViewDidEnter(){
   ionViewWillEnter(){
+    this.listTerminals = listofTerminals;
+    this.getData();
     this.getETA();
+  }
+
+  getData()
+  {
+    this.params = this.activatedRoute.snapshot.paramMap.get("url");
+    const splitParams = this.params.split("&&");
+    const idTerminalSource = splitParams[0];
+    const idTerminalDest = parseInt(splitParams[1]);
+
+    //Get Terminal Source
+    this.terminalService.getTerminalById(idTerminalSource).subscribe((response) =>{
+      this.terminalSource = response;
+      console.log("Terminal Source " + this.terminalSource);
+    });
+
+    //Get Terminal Destination
+    this.terminalService.getTerminalById(idTerminalDest).subscribe((res) =>{
+      this.terminalDest = res;
+      console.log("Terminal Dest " + this.terminalDest);
+    });
+
+  }
+  
+  ngOnInit() {
+  }
+
+  goHomePage(){
+    this.router.navigate(['/find-location']);
   }
 
   getETA(){
@@ -101,8 +134,7 @@ export class HomePage {
         closest = response.originAddresses[i]; // city name from destinations
         }
     }
-    $("#card-terminal-name").html("Terminal Politeknik");
+    // $("#card-terminal-name").html("Terminal Politeknik");
     $("#card-time").html(drivetime);
   }
 }
-    //end

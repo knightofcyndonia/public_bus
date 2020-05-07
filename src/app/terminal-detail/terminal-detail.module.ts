@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { FindBusPageRoutingModule } from './find-bus-routing.module';
+import { TerminalDetailPageRoutingModule } from './terminal-detail-routing.module';
 
-import { FindBusPage } from './find-bus.page';
+import { TerminalDetailPage } from './terminal-detail.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    FindBusPageRoutingModule
+    TerminalDetailPageRoutingModule
   ],
-  declarations: [FindBusPage]
+  declarations: [TerminalDetailPage]
 })
-export class FindBusPageModule {}
+export class TerminalDetailPageModule {}
