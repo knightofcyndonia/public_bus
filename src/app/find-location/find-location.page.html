@@ -1,0 +1,70 @@
+<div id="header">
+  <!-- <ion-input placeholder="Cari Route, Nama bus"></ion-input>  -->
+    <ion-grid>
+      <ion-row>
+      </ion-row>
+    </ion-grid>
+    
+    <div id="header-title">
+      <!-- <ion-icon name="home-outline" (click)="goHomePage()"></ion-icon> -->
+      <span id="span-header-title">Public Bus ETA</span>
+    </div>
+</div>
+
+<ion-content>
+  <div id="container">
+    <ion-card>
+      <ion-card-content>
+        <!-- <div class="div-input">
+          <ion-select placeholder="Select Terminal Source" [(ngModel)]="idTerminalSource" (ionChange)="selectedSourceTerminal(idTerminalSource)">
+            <ion-select-option *ngFor="let terminal of listTerminalsForSource" value="{{terminal.id}}">
+              {{terminal.terminal_name}}
+            </ion-select-option>
+          </ion-select>
+        </div> -->
+        <div>
+          <ion-searchbar showcancelbutton="" (ionInput)="selectedSourceTerminal($event)" [(ngModel)]="txtTerminalSource" placeholder="Select Source Terminal"></ion-searchbar>
+          <ion-input [(ngModel)]="txtIdTerminalSource" hidden></ion-input>
+          <ion-list [hidden]="!txtTerminalSource" id="terminalListSource">
+            <ion-item *ngFor="let terminal of goalListSourceTerminal" >
+              <ion-label (click)="fnSelectSource(terminal.id, terminal.terminal_name)"> {{ terminal.terminal_name }}</ion-label>
+            </ion-item>
+          </ion-list>
+        </div>
+
+        <div>
+          <ion-searchbar showcancelbutton="" (ionInput)="selectedDestTerminal($event)" [(ngModel)]="txtTerminalDest"  placeholder="Select Destination Terminal"></ion-searchbar>
+          <ion-input [(ngModel)]="txtIdTerminalDest" hidden></ion-input>
+          <ion-list [hidden]="!txtTerminalDest" id="terminalListDest">
+            <ion-item *ngFor="let terminal of goalListDestTerminal" >
+              <ion-label (click)="fnSelectDest(terminal.id, terminal.terminal_name)"> {{ terminal.terminal_name }}</ion-label>
+            </ion-item>
+          </ion-list>
+        </div>
+        
+        <!-- <div class="div-input">
+          <ion-select placeholder="Select Terminal Destination" [(ngModel)]="idTerminalDest" (ionChange)="selectDestinationTerminal(idTerminalDest)">
+            <ion-select-option *ngFor="let terminal of listTerminalsForDestination" value="{{terminal.id}}" >
+              {{terminal.terminal_name}}
+            </ion-select-option>
+          </ion-select>
+        </div> -->
+        
+        <ion-button expand="block" [disabled]="!txtTerminalDest || !txtTerminalSource" style="margin-top : 30px;" (click)="goFilterBus()">Find buses</ion-button>
+        
+
+        
+        
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- <ion-card>
+    <ion-list *ngIf="listTerminals.length > 0; else showIfNoData">
+      <ion-card-content>
+        <ion-item *ngFor="let terminal of listTerminals">{{ terminal.terminal_name }}</ion-item>
+      </ion-card-content>
+    </ion-list>
+  </ion-card> -->
+  
+</ion-content>

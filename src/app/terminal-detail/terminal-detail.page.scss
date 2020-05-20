@@ -1,0 +1,96 @@
+#container {
+    margin-top: 5%;
+    // text-align: center;
+  
+    // position: absolute;
+    // left: 0;
+    // right: 0;
+    // top: 50%;
+    // transform: translateY(-50%);
+  }
+  
+  #container strong {
+    font-size: 20px;
+    line-height: 26px;
+  }
+  
+  #container p {
+    font-size: 16px;
+    line-height: 22px;
+  
+    color: #8c8c8c;
+  
+    margin: 0;
+  }
+  
+  #container a {
+    text-decoration: none;
+  }
+  
+  //-----//
+  #maps{
+    height: 500px;
+    background-color: red;
+  }
+  
+  #search-header{
+    margin: 0px auto;
+    color : red;
+  }
+  
+  .span-header{
+    font-weight: bold;
+    font-size: 20px;
+  }
+  
+  ion-content ion-toolbar {
+    --background: translucent;
+  }
+  
+  
+  //---body---
+  .div-input
+  {
+    margin : 0 auto;
+    width: 90%;
+    padding : 2px 0;
+    border-radius:11px;
+    background: green;
+    margin-bottom: 9px;
+  }
+  
+  .div-input .ion-input{
+    margin-left: 20px;
+    color: white;
+  }
+  
+  
+  .div-card-content{
+    padding-bottom: 20px;
+  }
+  ion-card-title{
+    font-size: 20px;
+  }
+  ion-card .p-card{
+    margin-left: 2px;
+    border-bottom: 3px solid green;
+  }
+  
+  .bus-title{
+    font-size: 20px;
+    font-weight: bold;
+    border-left: 10px solid red;
+  }
+  
+  .bus-time{
+    font-size: 20px;
+    color : #8c8c8c;
+  }
+  //--- end of body---
+  
+  // ion-header ion-input{  
+  //   margin-left : 20px;
+  //   font-size: 18px;
+  //   font-family: Arial;
+  // }
+  
