@@ -33,6 +33,13 @@ export class TerminalDetailPage implements OnInit {
   terminalSource: any = [];
   terminalDest: any = [];
 
+  idTerminalSource;
+  idTerminalDest;
+
+   locationIndex = 0;
+   timeArrival;
+
+
   
   // @ViewChild('map') mapElement: ElementRef;
   // maps: any;
@@ -55,66 +62,64 @@ export class TerminalDetailPage implements OnInit {
   ionViewWillEnter(){
     this.listTerminals = listofTerminals;
     this.getData();
-    this.getETA();
+    // this.getETA();
   }
   
   ngOnInit() {
   }
 
-  getBusLocation(){
-      console.log("masuk anon login");
-      this.afAuth.signInAnonymously().then(res =>{
-        console.log(res);
-        this.user = res.user;
-        console.log("angular firestore");
-        console.log(this.afs)
-        this.locationsCollection = this.afs.collection(
-          `locations`,
-          ref => ref.orderBy('timestamp')
-        )
-  
-  
-        //load firebase data
-        // this.locations = this.locationsCollection.valueChanges();
-  
-        //make sure we also get the Firebase item ID!
-        this.locations = this.locationsCollection.snapshotChanges().pipe(
-          map(actions =>
-            actions.map(a => {
-              const data = a.payload.doc.data();
-              const id = a.payload.doc.id;
-              return { id, ...data };
-            })
-          )
-        );
-  
-        //update map
-        this.locations.subscribe(locations => {
-          console.log('new locations :', locations);
-          this.updateMap(locations);
-        });
-      })
+  getBusLocation()
+  {
+    console.log("masuk anon login");
 
-      console.log("gps detech");
-      console.log(this.locations);
-  
+    this.afAuth.signInAnonymously().then(res => {
+      console.log(res);
+      this.user = res.user;
+      console.log("angular firestore");
+      console.log(this.afs)
+      this.locationsCollection = this.afs.collection(
+        `locations`,
+        ref => ref.orderBy('timestamp')
+      )
+
+      //load firebase data
+      // this.locations = this.locationsCollection.valueChanges();
+
+      //make sure we also get the Firebase item ID!
+      this.locations = this.locationsCollection.snapshotChanges().pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
+
+      //update map
+      this.locations.subscribe(locations => {
+        console.log('new locations :', locations);
+        this.updateMap(locations);
+      });
+    })
+    console.log(this.locations);
   }
 
   getData()
   {
     this.params = this.activatedRoute.snapshot.paramMap.get("url");
     const splitParams = this.params.split("&&");
-    const idTerminalSource = splitParams[0];
-    const idTerminalDest = parseInt(splitParams[1]);
+    this.idTerminalSource = splitParams[0];
+    this.idTerminalDest = parseInt(splitParams[1]);
 
     //Get Terminal Source
-    this.terminalService.getTerminalById(idTerminalSource).subscribe((response) =>{
+    this.terminalService.getTerminalById(this.idTerminalSource).subscribe((response) =>{
       this.terminalSource = response;
       console.log("Terminal Source " + this.terminalSource);
     });
 
     //Get Terminal Destination
-    this.terminalService.getTerminalById(idTerminalDest).subscribe((res) =>{
+    this.terminalService.getTerminalById(this.idTerminalDest).subscribe((res) =>{
       this.terminalDest = res;
       console.log("Terminal Dest " + this.terminalDest);
     });
@@ -125,32 +130,16 @@ export class TerminalDetailPage implements OnInit {
     this.router.navigate(['/find-location']);
   }
 
-  getETA(){
-    this.map = new google.maps.Map(document.getElementById("map"), {
-      // center: {lat: 1.118914, lng: 104.048442},
-      // zoom: 15
-      zoom: 15,
-      center: {lat: 1.037402, lng: 103.976902}
-    });
-
-    const cities = [
-      {lat: 1.119897, lng: 104.048092, terminalName : "Terminal Politeknik negeri batam 1"}, // Terminal Politeknik negeri batam 1
-      {lat: 1.129850, lng: 104.054040, terminalName : "Terminal Engku Putri"}, //Terminal Engku putri
-      {lat: 1.120358, lng: 104.048805, terminalName : "Terminal Politeknik negeri batam 2"} //Terminal KFC Politeknik
-    ];
-
-    // Loop through cities, adding markers
-    for (let i=0; i<cities.length; i++) {
-      let position = cities[i]; // location of one city
-      // create marker for a city
-      let mk = new google.maps.Marker({position: position, map: this.map});
-    }
-
+  getETA(location){
     // Add Distance Matrix here
+    let locationOrigins = location.lat.toString() + ", " + location.lng.toString();
+    let locationDestination = this.terminalDest.lat.toString() + ", " + this.terminalDest.lng.toString();
+    
     const service = new google.maps.DistanceMatrixService(); // instantiate Distance Matrix service
     const matrixOptions = {
-      origins: ["1.119897, 104.048092"], // technician locations
-      destinations: ["1.129850, 104.054040"], // customer address
+      // origins: ["1.119897, 104.048092"], // technician locations
+      origins : [locationOrigins],
+      destinations: [locationDestination], // customer address
       travelMode: 'DRIVING',
       unitSystem: google.maps.UnitSystem.IMPERIAL
     };
@@ -160,17 +149,18 @@ export class TerminalDetailPage implements OnInit {
   }
 
   getDistanceMatrix(matrixOptions, service){
-    var remain = service.getDistanceMatrix(matrixOptions, this.callback);
-    console.log(remain);
+    service.getDistanceMatrix(matrixOptions, this.callback);    
   }
 
   // Callback function used to process Distance Matrix response
-  callback(response, status) {
-    if (status !== "OK") {
-    alert("Error with distance matrix");
-    return;
+  callback(response, status) 
+  {
+    if (status !== "OK")
+    {
+      alert("Error with distance matrix");
+      return;
     }
-    console.log(response);
+    console.log(response);      
 
     //calculation matrix
     let routes = response.rows[0].elements;
@@ -187,27 +177,32 @@ export class TerminalDetailPage implements OnInit {
         }
     }
     // $("#card-terminal-name").html("Terminal Politeknik");
-    $("#card-time").html(drivetime);
+    this.timeArrival = drivetime;
+    $(".bus-time").html(this.timeArrival);
   }
 
   // Redraw all markers on the map
-    updateMap(locations) {
-      
-      console.log("masuk update map");
-      // Remove all current marker
-      // this.markers.map(marker => marker.setMap(null));
-      // this.markers = [];
-    
-      for (let loc of locations) {
-        let latLng = new google.maps.LatLng(loc.lat, loc.lng);
-    
-        let marker = new google.maps.Marker({
-          // map: this.maps,
-          animation: google.maps.Animation.DROP,
-          position: latLng
-        });
-        // this.markers.push(marker);
-        // this.lastLocation = loc;
-      }
+  updateMap(locations) {
+    console.log("masuk update map");
+    // Remove all current marker
+    // this.markers.map(marker => marker.setMap(null));
+    // this.markers = [];
+  
+    let indexs = this.locationIndex
+    for (let loc of locations) {
+
+      let latLng = new google.maps.LatLng(loc.lat, loc.lng);
+      this.getETA(loc);
+      let marker = new google.maps.Marker({
+        // map: this.maps,
+        animation: google.maps.Animation.DROP,
+        position: latLng
+      });
+
+      indexs = this.locationIndex + 1;
+      this.locationIndex += indexs;
+      // this.markers.push(marker);
+      // this.lastLocation = loc;
     }
+  }
 }

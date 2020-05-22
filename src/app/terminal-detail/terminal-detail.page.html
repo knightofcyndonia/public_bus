@@ -22,7 +22,7 @@
     </ion-card-header> 
   
     <div class="div-card-content">
-      <ion-item lines="none" *ngFor="let location of locations | async">
+      <ion-item lines="none" *ngFor="let location of (locations | async); let i = index">
         <!-- <ion-label class="bus-title">Transbus 31</ion-label>
         <ion-icon name="time-outline" slot="end" class="bus-time"></ion-icon>
         <p class="bus-time" slot="end" id="card-time">{{etaTime}}</p> -->
@@ -30,7 +30,7 @@
         <!-- <ion-label class="bus-title">Lng : {{location.lng}}</ion-label>
         <ion-label class="bus-title">Lat : {{location.lat}}</ion-label> -->
         <ion-icon name="time-outline" slot="end" class="bus-time"></ion-icon>
-        <p class="bus-time" slot="end" id="card-time">{{etaTime}}</p>
+        <p class="bus-time" slot="end" id="{{'card-time_' + i}}"></p>
       </ion-item>
     </div>
     
