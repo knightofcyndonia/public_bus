@@ -10,6 +10,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+<<<<<<< HEAD
 
 import { environment } from '../environments/environment';
 
@@ -31,6 +32,12 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
         AngularFireDatabaseModule,
         AngularFireStorageModule
   ],
+=======
+@NgModule({
+  declarations: [AppComponent],
+  entryComponents: [],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
+>>>>>>> 631977655b516267b5049fad5886dca2633d67e5
   providers: [
     StatusBar,
     SplashScreen,

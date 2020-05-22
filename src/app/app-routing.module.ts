@@ -16,10 +16,13 @@ const routes: Routes = [
     path: 'terminal-detail/:url',
     loadChildren: () => import('./terminal-detail/terminal-detail.module').then( m => m.TerminalDetailPageModule)
   },
+<<<<<<< HEAD
   {
     path: 'map-view',
     loadChildren: () => import('./map-view/map-view.module').then( m => m.MapViewPageModule)
   },
+=======
+>>>>>>> 631977655b516267b5049fad5886dca2633d67e5
 ];
 
 @NgModule({

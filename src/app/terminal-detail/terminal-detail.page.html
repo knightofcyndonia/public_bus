@@ -14,6 +14,7 @@
 
   <ion-card>
     <ion-card-header class="terminal-header">
+<<<<<<< HEAD
       <ion-card-title id="card-terminal-name">From</ion-card-title>
       <p class="p-card">{{terminalSource.terminal_name}}</p>
       
@@ -31,6 +32,17 @@
         <ion-label class="bus-title">Lat : {{location.lat}}</ion-label> -->
         <ion-icon name="time-outline" slot="end" class="bus-time"></ion-icon>
         <p class="bus-time" slot="end" id="{{'card-time_' + i}}"></p>
+=======
+      <ion-card-title id="card-terminal-name">{{terminalDest.terminal_name}}</ion-card-title>
+      <ion-card-subtitle>Batam Center</ion-card-subtitle>
+    </ion-card-header> 
+  
+    <div class="div-card-content">
+      <ion-item lines="none">
+        <ion-label class="bus-title">Transbus 31</ion-label>
+        <ion-icon name="time-outline" slot="end" class="bus-time"></ion-icon>
+        <p class="bus-time" slot="end" id="card-time">{{etaTime}}</p>
+>>>>>>> 631977655b516267b5049fad5886dca2633d67e5
       </ion-item>
     </div>
     

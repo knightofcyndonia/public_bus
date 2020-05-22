@@ -1,8 +1,12 @@
 {
   "name": "public_bus",
   "integrations": {
+<<<<<<< HEAD
     "cordova": {},
     "capacitor": {}
+=======
+    "cordova": {}
+>>>>>>> 631977655b516267b5049fad5886dca2633d67e5
   },
   "type": "angular"
 }

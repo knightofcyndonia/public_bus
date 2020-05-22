@@ -1,7 +1,10 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+<<<<<<< HEAD
     "skipLibCheck": true,
+=======
+>>>>>>> 631977655b516267b5049fad5886dca2633d67e5
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
